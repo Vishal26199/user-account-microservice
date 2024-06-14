@@ -61,14 +61,15 @@ def create_accounts():
 # LIST ALL ACCOUNTS
 ######################################################################
 
-@app.route("/accounts", methods = ["GET"])
+
+@app.route("/accounts", methods=["GET"])
 def list_accounts():
     """
     List all accounts
     This endpoint will list all accounts
     """
     app.logger.info("Request to list all Accounts")
-    accounts=Account.all()
+    accounts = Account.all()
     account_list = [account.serialize() for account in accounts]
     app.logger.info("Returning [%s] accounts", len(account_list))
 
@@ -78,7 +79,7 @@ def list_accounts():
 # READ AN ACCOUNT
 ######################################################################
 
-@app.route("/accounts/<int:account_id>", methods = ["GET"])
+@app.route("/accounts/<int:account_id>", methods=["GET"])
 def read_an_account(account_id):
     """
     Read an account by id
@@ -95,7 +96,8 @@ def read_an_account(account_id):
 # UPDATE AN EXISTING ACCOUNT
 ######################################################################
 
-@app.route("/accounts/<int:account_id>", methods = ["PUT"])
+
+@app.route("/accounts/<int:account_id>", methods=["PUT"])
 def update_an_account(account_id):
     """
     Update an account by id
@@ -114,7 +116,8 @@ def update_an_account(account_id):
 # DELETE AN ACCOUNT
 ######################################################################
 
-@app.route("/accounts/<int:account_id>", methods = ["DELETE"])
+
+@app.route("/accounts/<int:account_id>", methods=["DELETE"])
 def delete_an_account(account_id):
     """
     Delete an account
