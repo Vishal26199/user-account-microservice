@@ -144,11 +144,11 @@ class TestAccountService(TestCase):
 
     def test_list_accounts(self):
         """It should list all accounts"""
-        accounts = self._create_accounts(5)
+        self._create_accounts(5)
         resp = self.client.get(BASE_URL)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
-        self.assertEqual(len(data),5)
+        self.assertEqual(len(data), 5)
 
     def test_update_an_account(self):
         """It should update an account"""
@@ -158,8 +158,8 @@ class TestAccountService(TestCase):
         )
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
-        data["name"]="namaste"
-        resp = self.client.put(f"{BASE_URL}/{data['id']}", json = data)
+        data["name"] = "namaste"
+        resp = self.client.put(f"{BASE_URL}/{data['id']}", json=data)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         updated_account = resp.get_json()
         self.assertEqual(updated_account["name"], "namaste")
@@ -177,7 +177,7 @@ class TestAccountService(TestCase):
 
     def test_security_headers(self):
         """It should return security headers"""
-        resp = self.client.get("/", environ_overrides = HTTPS_ENVIRON)
+        resp = self.client.get("/", environ_overrides=HTTPS_ENVIRON)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         headers = {
             'X-Frame-Options': 'SAMEORIGIN',
@@ -186,12 +186,11 @@ class TestAccountService(TestCase):
             'Referrer-Policy': 'strict-origin-when-cross-origin'
         }
         for key, value in headers.items():
-            self.assertEqual(resp.headers.get(key),value)
+            self.assertEqual(resp.headers.get(key), value)
 
     def test_cors_security(self):
         """It should return a CORS header"""
-        resp = self.client.get("/", environ_overrides = HTTPS_ENVIRON)
+        resp = self.client.get("/", environ_overrides=HTTPS_ENVIRON)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         # Check for the CORS header
-        self.assertEqual(resp.headers.get('Access-Control-Allow-Origin'),'*')
-        
+        self.assertEqual(resp.headers.get('Access-Control-Allow-Origin'), '*')
