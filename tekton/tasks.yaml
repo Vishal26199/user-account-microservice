@@ -67,7 +67,7 @@ spec:
     - name: database_uri
       description: Database connection string
       type: string
-      default: "sqlite://test.db"
+      default: "sqlite:///test.db"
 
   steps:
     - name: nosetests
